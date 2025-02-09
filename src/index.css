@@ -1,13 +1,57 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Table Container */
+.table-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Table Styling */
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Table Header */
+.symbol-table th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+/* Table Data Cells */
+.symbol-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* Row Hover Effect */
+.symbol-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Color for Bid and Ask */
+.symbol-table td {
+  transition: color 0.3s ease;
+}
+
+/* Specific Styling for Bid and Ask - Green for Up, Red for Down */
+.symbol-table td[style*="color: green"] {
+  font-weight: bold;
+  color: #4CAF50; /* Green */
+}
+
+.symbol-table td[style*="color: red"] {
+  font-weight: bold;
+  color: #F44336; /* Red */
 }

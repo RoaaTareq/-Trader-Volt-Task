@@ -1,27 +1,17 @@
-// /src/store/webSocketSlice.js
-
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const webSocketSlice = createSlice({
-  name: "webSocket",
+  name: 'webSocket',
   initialState: {
-    updates: [],
+    connected: false,
   },
   reducers: {
-    updateSymbolData: (state, action) => {
-      const updatedData = action.payload;
-      const index = state.updates.findIndex(
-        (symbol) => symbol.symbolID === updatedData.symbolID
-      );
-      if (index !== -1) {
-        state.updates[index] = updatedData;
-      } else {
-        state.updates.push(updatedData);
-      }
-    },
-  },
+    setWebSocketStatus: (state, action) => {
+      state.connected = action.payload;
+    }
+  }
 });
 
-export const { updateSymbolData } = webSocketSlice.actions;
+export const { setWebSocketStatus } = webSocketSlice.actions;
 
 export default webSocketSlice.reducer;

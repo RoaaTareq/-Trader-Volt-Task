@@ -1,39 +1,50 @@
-// /src/components/SymbolList.js
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSymbolsAsync, updateSymbol } from '../store/symbolsSlice';
+import { connectWebSocket } from '../services/webSocketService';
+import SymbolItem from './SymbolItem';
 
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchSymbolsData } from "../store/symbolsSlice";
-import { updateSymbolData } from "../store/webSocketSlice";
-import SymbolItem from "./SymbolItem";
-import { createWebSocketConnection } from "../services/webSocketService";
-
-const SymbolList = () => {
+const SymbolList = ({ clientId }) => {
   const dispatch = useDispatch();
-  const symbols = useSelector((state) => state.symbols.symbols);
-  const status = useSelector((state) => state.symbols.status);
-  const error = useSelector((state) => state.symbols.error);
+  const { symbols, status } = useSelector((state) => state.symbols);
 
   useEffect(() => {
-    dispatch(fetchSymbolsData());
-    const ws = createWebSocketConnection((data) => {
-      data.value.forEach((updatedSymbol) => {
-        dispatch(updateSymbolData(updatedSymbol));
-      });
+    dispatch(fetchSymbolsAsync(clientId));
+    const ws = connectWebSocket('ws://57.128.175.72:8080/ws?apikey=Aa123!@%23#', (data) => {
+      if (data && data.symbolID) {
+        // Update the symbol with the new data from the WebSocket
+        dispatch(updateSymbol(data));
+      } else {
+        console.warn('Invalid data received from WebSocket:', data);
+      }
     });
 
     return () => {
       ws.close();
     };
-  }, [dispatch]);
+  }, [dispatch, clientId]);
 
-  if (status === "loading") return <p>Loading symbols...</p>;
-  if (status === "failed") return <p>Error: {error}</p>;
+  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'failed') return <p>Error loading symbols</p>;
 
   return (
-    <div className="symbol-list">
-      {symbols.map((symbol) => (
-        <SymbolItem key={symbol.id} symbol={symbol} update={symbol} />
-      ))}
+    <div className="table-container">
+      <table className="symbol-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Bid</th>
+            <th>Ask</th>
+            <th>High</th>
+            <th>Low</th>
+          </tr>
+        </thead>
+        <tbody>
+          {symbols.map((symbol) => (
+            <SymbolItem key={symbol.id} symbol={symbol} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

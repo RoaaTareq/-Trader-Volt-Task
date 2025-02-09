@@ -1,15 +1,12 @@
-// /src/services/apiService.js
+import axios from 'axios';
 
-import axios from "axios";
+const API_URL = 'http://57.128.175.72:8080/api/Public/Symbols';
 
-const apiUrl = "http://57.128.175.72:8080/api/Public/Symbols";
-const clientId = 77843;
-
-export const fetchSymbols = async () => {
+export const fetchSymbols = async (clientId) => {
   try {
-    const response = await axios.post(apiUrl, { clientId });
+    const response = await axios.post(API_URL, { clientId });
     return response.data;
   } catch (error) {
-    throw new Error("Failed to fetch symbols");
+    throw new Error('Failed to fetch symbols');
   }
 };

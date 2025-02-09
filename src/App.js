@@ -1,13 +1,13 @@
-// /src/App.js
-
-import React from "react";
-import SymbolsPage from "./pages/SymbolsPage";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import SymbolsPage from './pages/SymbolsPage';
 
 const App = () => {
   return (
-    <div>
+    <Provider store={store}>
       <SymbolsPage />
-    </div>
+    </Provider>
   );
 };
 

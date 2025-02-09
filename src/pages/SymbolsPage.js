@@ -1,13 +1,11 @@
-// /src/pages/SymbolsPage.js
-
-import React from "react";
-import SymbolList from "../components/SymbolList";
+import React from 'react';
+import SymbolList from '../components/SymbolList';
 
 const SymbolsPage = () => {
   return (
     <div>
-      <h1>Symbols</h1>
-      <SymbolList />
+
+      <SymbolList clientId={77843} />
     </div>
   );
 };

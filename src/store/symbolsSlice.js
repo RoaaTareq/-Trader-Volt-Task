@@ -1,38 +1,44 @@
-// /src/store/symbolsSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchSymbols } from '../services/apiService';
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchSymbols } from "../services/apiService";
-
-export const fetchSymbolsData = createAsyncThunk(
-  "symbols/fetchSymbols",
-  async () => {
-    const data = await fetchSymbols();
-    return data;
+export const fetchSymbolsAsync = createAsyncThunk(
+  'symbols/fetchSymbols',
+  async (clientId) => {
+    const response = await fetchSymbols(clientId);
+    return response;
   }
 );
 
 const symbolsSlice = createSlice({
-  name: "symbols",
+  name: 'symbols',
   initialState: {
     symbols: [],
-    status: "idle",
-    error: null,
+    status: 'idle', // 'idle', 'loading', 'failed'
   },
-  reducers: {},
+  reducers: {
+    updateSymbol: (state, action) => {
+      const { symbolID, bid, ask, high, low } = action.payload;
+      const index = state.symbols.findIndex(symbol => symbol.id === symbolID);
+      if (index >= 0) {
+        state.symbols[index] = { ...state.symbols[index], bid, ask, high, low };
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSymbolsData.pending, (state) => {
-        state.status = "loading";
+      .addCase(fetchSymbolsAsync.pending, (state) => {
+        state.status = 'loading';
       })
-      .addCase(fetchSymbolsData.fulfilled, (state, action) => {
-        state.status = "succeeded";
+      .addCase(fetchSymbolsAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
         state.symbols = action.payload;
       })
-      .addCase(fetchSymbolsData.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+      .addCase(fetchSymbolsAsync.rejected, (state) => {
+        state.status = 'failed';
       });
-  },
+  }
 });
+
+export const { updateSymbol } = symbolsSlice.actions;
 
 export default symbolsSlice.reducer;
