@@ -22,7 +22,6 @@ const SymbolItem = ({ symbol, updatedData }) => {
   return (
     <tr>
       <td>{name}</td>
-      <td>{symbolID}</td>
       <td style={{ color: getTextColor(bid, prevBid) }}>{bid}</td>
       <td style={{ color: getTextColor(ask, prevAsk) }}>{ask}</td>
       <td>{high}</td>
