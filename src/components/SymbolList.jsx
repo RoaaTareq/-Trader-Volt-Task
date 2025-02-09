@@ -10,10 +10,13 @@ const SymbolList = ({ clientId }) => {
 
   useEffect(() => {
     dispatch(fetchSymbolsAsync(clientId));
+   
     const ws = connectWebSocket('ws://57.128.175.72:8080/ws?apikey=Aa123!@%23#', (data) => {
       if (data && data.symbolID) {
         // Update the symbol with the new data from the WebSocket
         dispatch(updateSymbol(data));
+        console.log(data)
+        
       } else {
         console.warn('Invalid data received from WebSocket:', data);
       }
@@ -33,6 +36,7 @@ const SymbolList = ({ clientId }) => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>symbolID</th>
             <th>Bid</th>
             <th>Ask</th>
             <th>High</th>
