@@ -1,7 +1,5 @@
-# -Trader-Volt-Task
-
-[1.]('./public/Screenshot2025-02-09 220948.png')
-[2. ]('./public/Screenshot2025-02-09 221450.png')
-[3.]('./public/Screenshot2025-02-09 224407.png')
-[4.]('./public/Screenshot2025-02-09 224416.png')
-[5.]('./public/Screenshot2025-02-09 224411.png')
+![Screenshot 1](/Screenshot2025-02-09_220948.png)
+![Screenshot 2](/Screenshot2025-02-09_221450.png)
+![Screenshot 3](/Screenshot2025-02-09_224407.png)
+![Screenshot 4](/Screenshot2025-02-09_224416.png)
+![Screenshot 5](/Screenshot2025-02-09_224411.png)
