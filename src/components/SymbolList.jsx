@@ -36,7 +36,6 @@ const SymbolList = ({ clientId }) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>symbolID</th>
             <th>Bid</th>
             <th>Ask</th>
             <th>High</th>
